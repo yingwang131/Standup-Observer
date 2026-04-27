@@ -23,6 +23,9 @@ config.yaml
 *.swp
 *.swo
 
+# Claude Code - personal settings only (share skills/commands/CLAUDE.md)
+.claude/settings.local.json
+
 # OS
 .DS_Store
 Thumbs.db
