@@ -80,22 +80,30 @@ standup --help
 
 ## Example Output
 
-```markdown
-## 📅 Daily Standup - 2026-04-25
+```
+🎯 Highlights ────────────────────────────────────────────────────────────
 
-### 🎯 PR Highlights
-| PR | Status | Repo |
-|----|--------|------|
-| #123 Add user auth | 🟢 Merged | my-project |
+✅ Merged PR #611: Blob-multistagematrix-part2 and other small fixes
 
-### ✅ Accomplished
-| Time | Category | Description |
-|------|----------|-------------|
-| 09:30-11:00 | Code | Implemented authentication flow |
-| 14:00-15:30 | Meeting | Sprint planning |
+⚡ Quick Version ────────────────────────────────────────────────────────────
 
-### 🎙️ Standup Script
-> Yesterday I merged the auth PR and attended sprint planning...
+• On 2026-04-23, I merged PR #611 for blob multi-stage matrix improvements on the File Manager.
+• Also spent time debugging Docker timeouts in SFTP E2E tests and fixing multiple issues in the standup observer tool.
+
+📝 Full Version ────────────────────────────────────────────────────────────
+
+• On 2026-04-23, the main thing I accomplished was merging PR #611 which included blob multi-stage matrix improvements and other small fixes for the File Manager. I also did a deep dive into Docker timeout issues that were affecting our SFTP E2E tests - turns out there were some infrastructure bottlenecks I managed to identify.
+• While I was troubleshooting, I also knocked out debugging work on the standup observer tool, specifically around Git activity logs not properly capturing push and PR events. Moving forward, this should help stabilize our test infrastructure and improve our development workflow tracking.
+
+📋 Detailed Breakdown ────────────────────────────────────────────────────────────
+
+File Manager:
+• Merged PR #611 with blob multi-stage matrix improvements and small fixes
+• Debugged Docker timeout issues in SFTP E2E tests
+
+Standup Observer:
+• Fixed Git activity logs not capturing push and PR events
+• Debugged multiple system errors
 ```
 
 ## Project Structure
