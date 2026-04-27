@@ -7,7 +7,7 @@ A CLI tool that automatically generates daily standup reports by collecting your
 - **Git commits** - Scans your local repositories
 - **GitHub PRs** - Tracks opened, merged PRs and code reviews
 - **Claude Code sessions** - Extracts work summaries from transcripts
-- **Jira issues** - Fetches your ticket updates (optional)
+- **Jira issues** - Fetches your ticket updates (no access to generate JIRA token currently)
 - **Outlook calendar** - Lists meetings attended (via ICS)
 - **AI summarization** - Uses Claude to generate concise reports
 
