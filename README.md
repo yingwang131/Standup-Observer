@@ -15,18 +15,25 @@ A CLI tool that automatically generates daily standup reports by collecting your
 
 ```bash
 # Clone the repository
-git clone https://github.com/yingwang131/standup-observer.git
-cd standup-observer
+git clone https://github.com/yingwang131/Standup-Observer.git
+cd Standup-Observer
 
 # Install dependencies
 npm install
 
-# Build
+# Build (required for global command)
 npm run build
 
-# Link globally (optional, enables `standup` command)
+# Link globally (required to use the `standup` command)
 npm link
 ```
+
+> **Note**: After `npm link`, open a new terminal window for the `standup` command to be available on your PATH.
+
+### Requirements
+
+- Node.js 18 or higher
+- **Windows only** for Outlook calendar integration (uses PowerShell to fetch ICS)
 
 ## Configuration
 
@@ -41,8 +48,13 @@ Edit `.env` and fill in your tokens:
 | Variable | Required | How to get |
 |----------|----------|------------|
 | `GITHUB_TOKEN` | Yes | [GitHub Settings > Tokens](https://github.com/settings/tokens) - needs `repo`, `read:user` scopes |
-| `AWS_BEARER_TOKEN_BEDROCK` | Yes | AWS Console or contact your admin |
-| `JIRA_API_TOKEN` | No | [Atlassian API Tokens](https://id.atlassian.com/manage-profile/security/api-tokens) |
+| `AWS_BEARER_TOKEN_BEDROCK` | One of these | AWS Console - for AI summarization via AWS Bedrock |
+| `ANTHROPIC_API_KEY` | One of these | [Anthropic Console](https://console.anthropic.com/) - alternative to AWS Bedrock |
+| `AWS_REGION` | No | Defaults to `us-east-1` |
+| `BEDROCK_MODEL_ID` | No | Defaults to `us.anthropic.claude-sonnet-4-20250514-v1:0` |
+| `OUTLOOK_ICS_URL` | No | Can be set here or in `config.yaml` |
+
+> **AI Summarization**: You need **either** `AWS_BEARER_TOKEN_BEDROCK` **or** `ANTHROPIC_API_KEY`. The tool tries Bedrock first, then falls back to the Anthropic API. Without either, use `--no-ai` to get raw data only.
 
 ### 2. Configuration File
 
@@ -51,15 +63,14 @@ cp config.example.yaml config.yaml
 ```
 
 Edit `config.yaml` to set your:
-- Git repository paths
-- Jira project keys
-- Outlook calendar ICS URL
-- Claude transcripts path
+- Git repository paths (absolute paths to local repos)
+- Outlook calendar ICS URL (Outlook > Settings > Calendar > Shared calendars > Publish calendar)
+- Claude transcripts path (typically `~/.claude/projects`)
 
 ## Usage
 
 ```bash
-# Generate today's standup report
+# Generate today's standup report (with AI summarization)
 standup
 
 # Generate report for a specific date
@@ -71,12 +82,29 @@ standup yesterday
 # Output to file
 standup -o report.md
 
-# Skip AI summarization (faster, raw data only)
+# Debug mode: skip AI, show raw activity data
+# WARNING: Without AI, descriptions are not translated or summarized,
+# so the output may contain text in any language used in your commits,
+# Jira tickets, or Claude Code sessions.
 standup --no-ai
 
 # Show help
 standup --help
 ```
+
+### Development Mode
+
+If you haven't run `npm link`, you can run directly with ts-node (no build required):
+
+```bash
+# Run directly without building
+npx ts-node src/index.ts -d 2026-04-25
+
+# Or use npm script (note the -- separator for arguments)
+npm run dev -- -d 2026-04-25
+```
+
+> **Tip**: For daily use, run `standup` without flags. The AI summarization translates and polishes the output into a professional standup script. Use `--no-ai` only for debugging or when you want to inspect raw data.
 
 ## Example Output
 
