@@ -1,0 +1,44 @@
+# ===========================================
+# Standup Observer - Configuration
+# ===========================================
+# Copy this file to config.yaml and customize:
+#   cp config.example.yaml config.yaml
+# ===========================================
+
+# Git repositories to scan for commits
+git:
+  repos:
+    - /path/to/your/project1
+    - /path/to/your/project2
+    # Windows example: C:/Source/my-project
+    # Mac/Linux example: /Users/you/projects/my-project
+
+# Jira configuration (optional)
+jira:
+  baseUrl: https://your-company.atlassian.net
+  projects:
+    - PROJECT_KEY
+  # Set JIRA_API_TOKEN in .env file
+
+# GitHub configuration
+github:
+  baseUrl: https://github.com/your-org
+  # Set GITHUB_TOKEN in .env file
+
+# Outlook calendar (optional)
+# How to get ICS URL: Outlook Settings > Calendar > Shared calendars > Publish calendar
+outlook:
+  icsUrl: "https://outlook.office365.com/owa/calendar/YOUR_CALENDAR_ID/calendar.ics"
+
+# Claude Code transcripts path
+claude:
+  transcriptsPath: ~/.claude/projects
+  # Windows: C:/Users/YOUR_USERNAME/.claude/projects
+  # Mac: /Users/YOUR_USERNAME/.claude/projects
+
+# Filter settings
+filter:
+  minDurationMinutes: 2
+  excludePatterns:
+    - "merge branch"
+    - "WIP"

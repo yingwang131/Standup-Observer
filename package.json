@@ -1,0 +1,38 @@
+{
+  "name": "standup-observer",
+  "version": "1.0.0",
+  "description": "Personal Standup Observer - Generate daily standup reports from activity logs",
+  "main": "dist/index.js",
+  "bin": {
+    "standup": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "standup": "ts-node src/index.ts"
+  },
+  "keywords": [
+    "standup",
+    "productivity",
+    "cli"
+  ],
+  "author": "cwang2",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.1031.0",
+    "@types/better-sqlite3": "^7.6.13",
+    "better-sqlite3": "^12.9.0",
+    "commander": "^12.0.0",
+    "dayjs": "^1.11.0",
+    "dotenv": "^17.4.2",
+    "node-ical": "^0.26.0",
+    "yaml": "^2.4.0"
+  }
+}
