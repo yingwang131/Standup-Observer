@@ -7,7 +7,7 @@ A CLI tool that automatically generates daily standup reports by collecting your
 - **Git commits** - Scans your local repositories
 - **GitHub PRs** - Tracks opened, merged PRs and code reviews
 - **Claude Code sessions** - Extracts work summaries from transcripts
-- **Jira issues** - Fetches your ticket updates (no access to generate JIRA token currently)
+- **Jira issues** - Fetches your ticket updates *(coming soon)*
 - **Outlook calendar** - Lists meetings attended (via ICS)
 - **AI summarization** - Uses Claude to generate concise reports
 
@@ -144,7 +144,7 @@ standup-observer/
 │   │   ├── git.ts         # Git commit collector
 │   │   ├── github.ts      # GitHub PR collector
 │   │   ├── claude.ts      # Claude Code transcript collector
-│   │   ├── jira.ts        # Jira issue collector
+│   │   ├── jira.ts        # Jira issue collector (coming soon)
 │   │   └── outlook.ts     # Outlook calendar collector
 │   ├── processor/
 │   │   ├── merger.ts      # Activity deduplication

@@ -105,9 +105,10 @@ export async function classifyAndSummarize(
   const isYesterday = reportDate.getTime() === yesterday.getTime();
   const timeWord = isToday ? 'Today' : isYesterday ? 'Yesterday' : `On ${date}`;
 
-  // Separate training activities - don't send to AI, keep original description with time
+  // Separate training and meeting activities - don't send to AI, keep original descriptions
   const trainingActivities = activities.filter(a => a.category === 'training');
-  const otherActivities = activities.filter(a => a.category !== 'training');
+  const meetingActivities = activities.filter(a => a.category === 'meeting');
+  const otherActivities = activities.filter(a => a.category !== 'training' && a.category !== 'meeting');
 
   // Convert training to TaskRow directly (preserve time info)
   const trainingRows: TaskRow[] = trainingActivities.map(a => ({
@@ -116,8 +117,15 @@ export async function classifyAndSummarize(
     status: 'Completed',
   }));
 
+  // Convert meetings to TaskRow directly (always show in report)
+  const meetingRows: TaskRow[] = meetingActivities.map(a => ({
+    project: 'General',
+    accomplishment: a.description,
+    status: 'Completed',
+  }));
+
   if (otherActivities.length === 0) {
-    return trainingRows;
+    return [...trainingRows, ...meetingRows];
   }
 
   const activitiesText = otherActivities.map(a => {
@@ -180,7 +188,7 @@ export async function classifyAndSummarize(
         accomplishment: t.description,
         status: 'Completed',
       }));
-      return [...trainingRows, ...aiTaskRows];
+      return [...trainingRows, ...meetingRows, ...aiTaskRows];
     }
   } else {
     lastScriptShort = '';
@@ -189,7 +197,7 @@ export async function classifyAndSummarize(
 
   // Fallback to original activities if AI didn't return tasks
   const activityRows = otherActivities.map(a => activityToTaskRow(a));
-  return [...trainingRows, ...activityRows];
+  return [...trainingRows, ...meetingRows, ...activityRows];
 }
 
 function extractJSON(text: string): string {
